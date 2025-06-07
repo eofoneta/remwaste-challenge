@@ -1,54 +1,76 @@
-# React + TypeScript + Vite
+# WeWantWaste Skip Selection Page Redesign
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+This is a complete redesign of the "Choose Your Skip Size" page from [WeWantWaste](https://wewantwaste.co.uk/), created as part of a front-end challenge. The goal was to modernize the UI/UX while keeping the original functionality intact, making the page more intuitive and responsive across all devices.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## What I Improved
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Progress Step Bar
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Redesigned the progress indicator for better clarity.
+- Added checkmark icons to completed steps so users always know where they are in the flow.
+- Initialization begins at step index `2` to match the redesign scope.
+
+### Page Header
+
+- Refactored using `Flexbox` to align important step related information clearly.
+- Moved the previously hidden disclaimer to a more visible position at the top of the page for better UX.
+
+### Skip Size Cards
+
+- Each card clearly displays:
+  - **Product image**
+  - **Number of yards**
+  - **Price**
+  - **Select button**
+- On clicking **Select**, a modal popup opens containing:
+  - Detailed information about the selected skip
+  - Taxes, pricing breakdown, road permissions, and more.
+
+The entire redesign is fully responsive. Optimized layout and components for both mobile and desktop views.
+
+---
+
+![Screenshot of landing page](./public//Screenshot1.png)
+![Screenshot of an active popup](./public//Screenshot2.png)
+
+
+- [ ] **Redesigned Progress Bar**
+- [ ] **Visible Disclaimer**
+- [ ] **Responsive Skip Cards**
+- [ ] **Skip Details Modal**
+
+---
+
+## Tech Stack
+
+- React
+- Vite
+- TypeScript
+- shadcn/ui
+- Axios
+
+---
+
+## 🧪 How to Run Locally
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/eofoneta/remwaste-challenge.git
+cd remwaste-challenge
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. **Install Dependencies**
+```bash
+npm install
 ```
+
+3. **Run Development server**
+```bash
+npm install
+```
+4. Open http://localhost:5173 in your browser to view the site.

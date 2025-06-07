@@ -31,7 +31,7 @@ const Home = ({ skipData, loading }: HomeProps) => {
   return (
     <div id="top-page">
       <StepperForm currentStep={currentStep} />
-      <div className="mt- sm:mt-30 mb-5 p-2 flex flex-col lg:flex-row md:justify-between">
+      <div className="mt- sm:mt-20 mb-5 p-2 flex flex-col lg:flex-row md:justify-between">
         <div>
           <motion.div
             className="font-semibold"
