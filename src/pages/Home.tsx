@@ -4,7 +4,7 @@ import { StepperForm } from "@/components/ui/StepperForm";
 import { images, steps } from "@/data/data";
 import type { SkipHireResponse } from "@/type/skipDataType";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface HomeProps {
   skipData: SkipHireResponse | null;
@@ -21,15 +21,11 @@ const Home = ({ skipData, loading }: HomeProps) => {
 
   const prev = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
 
-  useEffect(() => {
-    console.log("Selected id", selectedId);
-  }, [selectedId]);
-
   if (loading) return <div>Loading...</div>;
 
   return (
     <div>
-      <StepperForm currentStep={currentStep} next={next} prev={prev} />
+      <StepperForm currentStep={currentStep} />
       <div className="mt-10 sm:mt-30 mb-5 p-2 flex flex-col md:flex-row md:justify-between">
         <div>
           <motion.div
@@ -70,7 +66,7 @@ const Home = ({ skipData, loading }: HomeProps) => {
       {selectedId &&
         skipData
           ?.filter((skip) => skip.id === selectedId)
-          .map((data, _) => (
+          .map((data) => (
             <PopUp
               data={data}
               setSelectedId={setSelectedId}

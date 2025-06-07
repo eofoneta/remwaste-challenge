@@ -1,14 +1,11 @@
 import StepBar from "./StepBar";
-import { Button } from "./button";
 import { steps } from "@/data/data";
 
 interface StepperFormProps {
   currentStep: number;
-  next: () => void;
-  prev: () => void;
 }
 
-export const StepperForm = ({ currentStep, next, prev }: StepperFormProps) => {
+export const StepperForm = ({ currentStep }: StepperFormProps) => {
   return (
     <div className="p-4">
       <StepBar steps={steps} currentStep={currentStep} />

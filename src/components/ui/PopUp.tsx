@@ -1,5 +1,6 @@
 import type { SkipHireOption } from "@/type/skipDataType";
 import { Button } from "./button";
+import { CircleCheck, TriangleAlert } from "lucide-react";
 
 interface PopupProps {
   data: SkipHireOption;
@@ -55,13 +56,33 @@ const PopUp = ({ data, setSelectedId, selectedImage }: PopupProps) => {
               <span>Postcode</span>
               <span>{data?.postcode}</span>
             </div>
-            <div className="flex justify-between">
-              <span>Allowed on Road</span>
-              <span>{data?.allowed_on_road ? "Yes" : "No"}</span>
+            <div className="flex items-center gap-2 font-semibold pt-4">
+              <span className="text-yellow-600">
+                {data.allowed_on_road ? (
+                  <CircleCheck size={20} />
+                ) : (
+                  <TriangleAlert size={20} />
+                )}
+              </span>
+              <span>
+                {data.allowed_on_road
+                  ? "Allowed on road"
+                  : "Not allowed on road"}
+              </span>
             </div>
-            <div className="flex justify-between">
-              <span>Heavy Waste Allowed</span>
-              <span>{data?.allows_heavy_waste ? "Yes" : "No"}</span>
+            <div className="flex items-center gap-2 font-semibold">
+              <span className="text-yellow-600">
+                {data.allows_heavy_waste ? (
+                  <CircleCheck size={20} />
+                ) : (
+                  <TriangleAlert size={20} />
+                )}
+              </span>
+              <span>
+                {data.allows_heavy_waste
+                  ? "Heavy waste allowed"
+                  : "Heavy waste not allowed"}
+              </span>
             </div>
 
             <div className="mt-6 space-x-2">
