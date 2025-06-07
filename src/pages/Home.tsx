@@ -14,6 +14,7 @@ interface HomeProps {
 const Home = ({ skipData, loading }: HomeProps) => {
   const [currentStep, setCurrentStep] = useState(2); // 2 at default for challenge
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const next = () =>
     setCurrentStep((prev) => Math.min(prev + 1, steps.length - 1));
@@ -53,23 +54,29 @@ const Home = ({ skipData, loading }: HomeProps) => {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-        {skipData?.map((data, index) => (
-          <Card
-            setSelectedId={setSelectedId}
-            selectedId={selectedId}
-            key={data.id}
-            data={data}
-            image={images[index % images.length]}
-          />
-        ))}
+        {skipData?.map((data, index) => {
+          return (
+            <Card
+              key={data.id}
+              setSelectedId={setSelectedId}
+              selectedId={selectedId}
+              data={data}
+              image={images[index % images.length]}
+              setSelectedImage={setSelectedImage}
+            />
+          );
+        })}
       </div>
-      {selectedId && (
-        <PopUp
-          skipData={skipData}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-        />
-      )}
+      {selectedId &&
+        skipData
+          ?.filter((skip) => skip.id === selectedId)
+          .map((data, _) => (
+            <PopUp
+              data={data}
+              setSelectedId={setSelectedId}
+              selectedImage={selectedImage}
+            />
+          ))}
     </div>
   );
 };

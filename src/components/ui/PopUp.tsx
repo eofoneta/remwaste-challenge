@@ -1,13 +1,14 @@
-import type { SkipHireResponse } from "@/type/skipDataType";
+import type { SkipHireOption } from "@/type/skipDataType";
+import { Button } from "./button";
 
 interface PopupProps {
-  selectedId: number;
-  skipData: SkipHireResponse | null;
+  data: SkipHireOption;
   setSelectedId: (id: number | null) => void;
+  selectedImage: string | null;
 }
 
-const PopUp = ({ selectedId, skipData, setSelectedId }: PopupProps) => {
-  const data = skipData?.find((skip) => skip.id === selectedId);
+const PopUp = ({ data, setSelectedId, selectedImage }: PopupProps) => {
+  const totalPrice = data && data.price_before_vat + data?.vat;
 
   return (
     <div
@@ -15,17 +16,62 @@ const PopUp = ({ selectedId, skipData, setSelectedId }: PopupProps) => {
       onClick={() => setSelectedId(null)}
     >
       <div
-        className="relative p-6 rounded-xl shadow-lg z-60"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside popup
+        className="relative p-6 rounded-xl shadow-lg z-60 bg-[#1c1c1c] flex"
+        onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside popup
       >
-        <button
-          onClick={() => setSelectedId(null)}
-          className="absolute top-4 right-4 text-gray-500"
-        >
-          ✕
-        </button>
+        <div className="lg:w-3xl md:w-2xl flex flex-col lg:flex-row lg:justify-between gap-4">
+          <div
+            className="w-full lg:h-72 lg:w-[600px] sm:h-60 h-48 bg-zinc-200
+           dark:bg-zinc-800 rounded-xl mb-4 flex items-center justify-center text-zinc-500"
+          >
+            <img
+              src={selectedImage ?? ""}
+              className="w-full h-full object-cover"
+              alt=""
+            />
+          </div>
 
-        <div>{data?.id}</div>
+          <div className="lg:w-full space-y-2 text-sm">
+            <h2 className="text-2xl font-semibold mb-2">
+              {data?.size} Yard Skip
+            </h2>
+            <div className="flex justify-between">
+              <span>Hire Period</span>
+              <span>{data?.hire_period_days} days</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Price (excl. VAT)</span>
+              <span>£{data?.price_before_vat.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>VAT</span>
+              <span>£{data?.vat.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between font-semibold">
+              <span>Total Price</span>
+              <span>£{totalPrice?.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Postcode</span>
+              <span>{data?.postcode}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Allowed on Road</span>
+              <span>{data?.allowed_on_road ? "Yes" : "No"}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Heavy Waste Allowed</span>
+              <span>{data?.allows_heavy_waste ? "Yes" : "No"}</span>
+            </div>
+
+            <div className="mt-6 space-x-2">
+              <Button variant={"default"} onClick={() => setSelectedId(null)}>
+                Cancel
+              </Button>
+              <Button className="bg-yellow-500">Continue </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

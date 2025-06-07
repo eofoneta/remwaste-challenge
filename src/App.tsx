@@ -1,6 +1,5 @@
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import PopUp from "./components/ui/popUp";
 import type { SkipHireResponse } from "./type/skipDataType";
 import { useEffect, useState } from "react";
 import axios from "./api/axios";
