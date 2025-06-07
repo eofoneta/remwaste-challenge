@@ -5,10 +5,18 @@ import { CircleCheck, TriangleAlert } from "lucide-react";
 interface PopupProps {
   data: SkipHireOption;
   setSelectedId: (id: number | null) => void;
+  next: () => void;
+  prev: () => void;
   selectedImage: string | null;
 }
 
-const PopUp = ({ data, setSelectedId, selectedImage }: PopupProps) => {
+const PopUp = ({
+  data,
+  setSelectedId,
+  selectedImage,
+  next,
+  prev,
+}: PopupProps) => {
   const totalPrice = data && data.price_before_vat + data?.vat;
 
   return (
@@ -20,7 +28,13 @@ const PopUp = ({ data, setSelectedId, selectedImage }: PopupProps) => {
         className="relative p-6 rounded-xl shadow-lg z-60 bg-[#1c1c1c] flex"
         onClick={(e) => e.stopPropagation()} // prevent closing when clicking inside popup
       >
-        <div className="lg:w-3xl md:w-2xl flex flex-col lg:flex-row lg:justify-between gap-4">
+        <button
+          onClick={() => setSelectedId(null)}
+          className="absolute sm:top-4 sm:right-4 top-2 right-2 cursor-pointer text-xl text-zinc-300 hover:bg-[#3f3e3ef4] transition px-2 rounded-lg"
+        >
+          x
+        </button>
+        <div className="py-4 lg:w-3xl md:w-2xl flex flex-col lg:flex-row lg:justify-between gap-4">
           <div
             className="w-full lg:h-72 lg:w-[600px] sm:h-60 h-48 bg-zinc-200
            dark:bg-zinc-800 rounded-xl mb-4 flex items-center justify-center text-zinc-500"
@@ -86,10 +100,12 @@ const PopUp = ({ data, setSelectedId, selectedImage }: PopupProps) => {
             </div>
 
             <div className="mt-6 space-x-2">
-              <Button variant={"default"} onClick={() => setSelectedId(null)}>
-                Cancel
+              <Button variant={"default"} onClick={prev}>
+                Back
               </Button>
-              <Button className="bg-yellow-500">Continue </Button>
+              <Button onClick={next} className="bg-yellow-500">
+                Continue{" "}
+              </Button>
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { StepperForm } from "@/components/ui/StepperForm";
 import { images, steps } from "@/data/data";
 import type { SkipHireResponse } from "@/type/skipDataType";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface HomeProps {
   skipData: SkipHireResponse | null;
@@ -21,12 +21,17 @@ const Home = ({ skipData, loading }: HomeProps) => {
 
   const prev = () => setCurrentStep((prev) => Math.max(prev - 1, 0));
 
+  useEffect(() => {
+    // make step naviagtion visible (not really neccessary)
+    document.getElementById("top-page")?.scrollIntoView({ behavior: "smooth" });
+  }, [currentStep]);
+
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div id="top-page">
       <StepperForm currentStep={currentStep} />
-      <div className="mt-10 sm:mt-30 mb-5 p-2 flex flex-col md:flex-row md:justify-between">
+      <div className="mt- sm:mt-30 mb-5 p-2 flex flex-col lg:flex-row md:justify-between">
         <div>
           <motion.div
             className="font-semibold"
@@ -69,6 +74,8 @@ const Home = ({ skipData, loading }: HomeProps) => {
           .map((data) => (
             <PopUp
               data={data}
+              next={next}
+              prev={prev}
               setSelectedId={setSelectedId}
               selectedImage={selectedImage}
             />
