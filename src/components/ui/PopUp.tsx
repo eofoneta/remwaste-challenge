@@ -115,3 +115,4 @@ const PopUp = ({
 };
 
 export default PopUp;
+// src\components\ui\PopUp.tsx
